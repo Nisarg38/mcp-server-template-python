@@ -2,4 +2,4 @@
 
 from src.resources.example import ExampleResource
 
-__all__ = ["ExampleResource"] 
+__all__ = ["ExampleResource"]

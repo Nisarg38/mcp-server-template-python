@@ -1,14 +1,13 @@
 """Pytest configuration for MCP Server Template tests."""
 
+import math
+from typing import Any, Dict, List
+
 import pytest
 import pytest_asyncio
-import math
-from typing import Dict, Any, List
-
 from mcp.server.fastmcp import FastMCP
 
 from src.config import config
-
 
 # Set the default fixture loop scope for the async fixtures
 pytest_asyncio.default_fixture_loop_scope = "function"
@@ -25,7 +24,7 @@ async def mcp_server():
         icon="🧪",  # Test icon
         metadata={"test": True},
     )
-    
+
     # Define resources
     @server.resource("http://localhost/programming/languages")
     def languages_resource() -> Dict[str, Any]:
@@ -36,20 +35,20 @@ async def mcp_server():
                     "name": "Python",
                     "creator": "Guido van Rossum",
                     "year": 1991,
-                    "description": "Python is a high-level, general-purpose programming language."
+                    "description": "Python is a high-level, general-purpose programming language.",
                 },
                 {
                     "name": "TypeScript",
                     "creator": "Microsoft",
                     "year": 2012,
-                    "description": "TypeScript is a strongly typed programming language that builds on JavaScript."
+                    "description": "TypeScript is a strongly typed programming language that builds on JavaScript.",
                 },
                 {
                     "name": "Rust",
                     "creator": "Graydon Hoare",
-                    "year": 2010, 
-                    "description": "Rust is a multi-paradigm, high-level, general-purpose programming language."
-                }
+                    "year": 2010,
+                    "description": "Rust is a multi-paradigm, high-level, general-purpose programming language.",
+                },
             ]
         }
 
@@ -61,29 +60,34 @@ async def mcp_server():
                 "name": "Python",
                 "creator": "Guido van Rossum",
                 "year": 1991,
-                "paradigms": ["object-oriented", "imperative", "functional", "procedural"],
-                "description": "Python is a high-level, general-purpose programming language."
+                "paradigms": [
+                    "object-oriented",
+                    "imperative",
+                    "functional",
+                    "procedural",
+                ],
+                "description": "Python is a high-level, general-purpose programming language.",
             },
             "typescript": {
                 "name": "TypeScript",
                 "creator": "Microsoft",
                 "year": 2012,
                 "paradigms": ["object-oriented", "functional"],
-                "description": "TypeScript is a strongly typed programming language that builds on JavaScript."
+                "description": "TypeScript is a strongly typed programming language that builds on JavaScript.",
             },
             "rust": {
                 "name": "Rust",
                 "creator": "Graydon Hoare",
                 "year": 2010,
                 "paradigms": ["concurrent", "functional", "imperative", "structured"],
-                "description": "Rust is a multi-paradigm, high-level, general-purpose programming language."
-            }
+                "description": "Rust is a multi-paradigm, high-level, general-purpose programming language.",
+            },
         }
-        
+
         language_id = language_id.lower()
         if language_id not in languages:
             return {"error": f"Language {language_id} not found"}
-        
+
         return languages[language_id]
 
     # Define tools
@@ -94,7 +98,7 @@ async def mcp_server():
         return {
             "result": result,
             "operation": "addition",
-            "expression": f"{a} + {b} = {result}"
+            "expression": f"{a} + {b} = {result}",
         }
 
     @server.tool()
@@ -104,7 +108,7 @@ async def mcp_server():
         return {
             "result": result,
             "operation": "subtraction",
-            "expression": f"{a} - {b} = {result}"
+            "expression": f"{a} - {b} = {result}",
         }
 
     @server.tool()
@@ -114,7 +118,7 @@ async def mcp_server():
         return {
             "result": result,
             "operation": "multiplication",
-            "expression": f"{a} × {b} = {result}"
+            "expression": f"{a} × {b} = {result}",
         }
 
     @server.tool()
@@ -124,16 +128,16 @@ async def mcp_server():
             return {
                 "error": "Division by zero is not allowed",
                 "operation": "division",
-                "expression": f"{a} ÷ {b} = undefined"
+                "expression": f"{a} ÷ {b} = undefined",
             }
-        
+
         result = a / b
         return {
             "result": result,
             "operation": "division",
-            "expression": f"{a} ÷ {b} = {result}"
+            "expression": f"{a} ÷ {b} = {result}",
         }
-    
+
     # Define prompts
     @server.prompt()
     def math_problem(problem: str) -> str:
@@ -163,5 +167,5 @@ For each language, please discuss:
 - Performance characteristics
 
 Then provide a concise comparison highlighting when each would be the best choice for different scenarios."""
-    
-    return server 
+
+    return server

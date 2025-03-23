@@ -1,1 +1,1 @@
-"""MCP Server Template test package.""" 
+"""MCP Server Template test package."""

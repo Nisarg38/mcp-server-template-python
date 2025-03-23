@@ -9,7 +9,9 @@ class ServerConfig:
     def __init__(self):
         """Initialize with default configuration."""
         self.name: str = "MCP Server Template"
-        self.description: str = "A boilerplate for Model Context Protocol servers in Python"
+        self.description: str = (
+            "A boilerplate for Model Context Protocol servers in Python"
+        )
         self.version: str = "0.1.0"
         self.port: int = 8080
         self.host: str = "0.0.0.0"
@@ -34,4 +36,4 @@ class ServerConfig:
 
 
 # Global configuration instance
-config = ServerConfig() 
+config = ServerConfig()

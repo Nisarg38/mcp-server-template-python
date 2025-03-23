@@ -5,11 +5,11 @@ import asyncio
 import logging
 import math
 import sys
-from typing import Dict, Any, List, Optional
+from typing import Any, Dict, List, Optional
 
 import uvicorn
-from mcp.server.fastmcp import FastMCP
 from mcp import Transport
+from mcp.server.fastmcp import FastMCP
 from mcp.server.stdio import stdin_stdout_transport
 
 from src.config import config
@@ -36,7 +36,7 @@ def add(a: float, b: float) -> Dict[str, Any]:
     return {
         "result": result,
         "operation": "addition",
-        "expression": f"{a} + {b} = {result}"
+        "expression": f"{a} + {b} = {result}",
     }
 
 
@@ -79,7 +79,7 @@ async def run_server(
     debug: bool = config.debug,
 ) -> None:
     """Run the MCP server.
-    
+
     Args:
         port: The port to listen on for HTTP transport.
         host: The host to bind to for HTTP transport.
@@ -93,7 +93,7 @@ async def run_server(
     else:
         logger.info(f"Starting MCP server at http://{host}:{port}")
         app = mcp.get_app()
-        
+
         config_dict = uvicorn.Config(
             app=app,
             host=host,
@@ -111,7 +111,10 @@ def run_cli() -> None:
         "--port", type=int, default=config.port, help="HTTP server port (default: 8080)"
     )
     parser.add_argument(
-        "--host", type=str, default=config.host, help="HTTP server host (default: 0.0.0.0)"
+        "--host",
+        type=str,
+        default=config.host,
+        help="HTTP server host (default: 0.0.0.0)",
     )
     parser.add_argument(
         "--transport",
@@ -120,9 +123,7 @@ def run_cli() -> None:
         default="http",
         help="Transport type (default: http)",
     )
-    parser.add_argument(
-        "--debug", action="store_true", help="Enable debug mode"
-    )
+    parser.add_argument("--debug", action="store_true", help="Enable debug mode")
     parser.add_argument(
         "--log-level",
         type=str,
@@ -133,29 +134,29 @@ def run_cli() -> None:
     parser.add_argument(
         "--version", action="store_true", help="Show version information and exit"
     )
-    
+
     args = parser.parse_args()
-    
+
     if args.version:
         print(f"{config.name} v{get_version()}")
         sys.exit(0)
-    
+
     # Set up logging
     setup_logging(args.log_level)
-    
+
     # Determine transport type
-    transport_type = (
-        Transport.STDIO if args.transport == "stdio" else Transport.HTTP
-    )
-    
+    transport_type = Transport.STDIO if args.transport == "stdio" else Transport.HTTP
+
     # Run the server
     try:
-        asyncio.run(run_server(
-            port=args.port,
-            host=args.host,
-            transport=transport_type,
-            debug=args.debug,
-        ))
+        asyncio.run(
+            run_server(
+                port=args.port,
+                host=args.host,
+                transport=transport_type,
+                debug=args.debug,
+            )
+        )
     except KeyboardInterrupt:
         logger.info("Server stopped by user")
     except Exception as e:
@@ -164,4 +165,4 @@ def run_cli() -> None:
 
 
 if __name__ == "__main__":
-    run_cli() 
+    run_cli()

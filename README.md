@@ -1,29 +1,25 @@
 # MCP Server Template (Python)
 
-A complete boilerplate for creating Model Context Protocol (MCP) servers in Python.
+A ready-to-use template for building Model Context Protocol (MCP) servers in Python.
 
-## Features
+## What is MCP?
 
-- **Ready-to-use template**: Just clone, customize, and deploy.
-- **MCP SDK integration**: Built on the official Python SDK for Model Context Protocol.
-- **Example resources**: Includes sample tools, resources, and prompts.
-- **Docker support**: Containerized deployment with a pre-configured Dockerfile.
-- **Best practices**: Follows Python packaging standards and MCP server patterns.
+The Model Context Protocol (MCP) enables seamless integration between LLM applications and external tools, data sources, and prompts. This template gives you everything you need to create your own MCP server.
 
-## Getting Started
+## Quick Start
 
 ### Prerequisites
 
-- Python 3.10 or later
+- Python 3.10+
 
-### Installation
+### Setup in 3 Steps
 
-1. **Clone and customize**:
+1. **Install the package**:
    
    ```bash
    # Clone the repository
-   git clone https://github.com/yourusername/mcp-server-template-python.git your-project-name
-   cd your-project-name
+   git clone https://github.com/nisarg38/mcp-server-template-python.git my-mcp-server
+   cd my-mcp-server
    
    # Install in development mode
    pip install -e ".[dev]"
@@ -32,95 +28,99 @@ A complete boilerplate for creating Model Context Protocol (MCP) servers in Pyth
 2. **Run your server**:
 
    ```bash
-   # Run directly with Python
+   # Run with Python
    python -m src.main
-
-   # Or use the installed CLI
+   
+   # Or use the CLI
    mcp-server-template
    ```
 
-3. **Connect to your server**:
+3. **Your server is now live!**
    
-   Your MCP server will be available at:
+   Access your MCP server at:
    - HTTP: http://localhost:8080
-   - Stdio/CLI: `mcp-server-template --transport stdio`
+   - Use the stdio transport: `mcp-server-template --transport stdio`
+
+## Command Line Options
+
+```bash
+# Change port
+mcp-server-template --port 9000
+
+# Enable debug mode
+mcp-server-template --debug
+
+# Use stdio transport instead of HTTP
+mcp-server-template --transport stdio
+
+# Set logging level
+mcp-server-template --log-level debug
+```
+
+## Adding Your Own Tools and Prompts
+
+### Add a Tool
+
+Edit `src/main.py` and add a new tool function:
+
+```python
+@mcp.tool()
+def your_tool_name(param1: str, param2: int) -> Dict[str, Any]:
+    """Your tool description."""
+    # Your tool logic here
+    return {"result": "your result"}
+```
+
+### Add a Prompt
+
+Edit `src/main.py` and add a new prompt function:
+
+```python
+@mcp.prompt()
+def your_prompt_name(param: str) -> str:
+    """Your prompt description."""
+    return f"""
+    Your formatted prompt with {param} inserted
+    """
+```
 
 ## Project Structure
 
 ```
-mcp-server-template-python/
-├── src/                      # Source code
-│   ├── __init__.py           # Package marker
-│   ├── main.py               # Server entry point
-│   ├── config.py             # Configuration
-│   ├── resources/            # MCP resources
-│   │   ├── __init__.py
-│   │   └── example.py        # Example resource
-│   ├── tools/                # MCP tools
-│   │   ├── __init__.py
-│   │   └── calculator.py     # Example tool
-│   └── utils/                # Utility functions
-│       ├── __init__.py
-│       └── helpers.py        # Helper functions
-├── test/                     # Test directory
-│   ├── __init__.py
-│   ├── conftest.py           # Pytest configuration
-│   └── test_server.py        # Server tests
-├── pyproject.toml            # Package configuration
-├── Dockerfile                # Docker configuration
-├── .github/                  # GitHub Actions
-│   └── workflows/
-│       └── tests.yml         # CI workflow
-├── .gitignore                # Git ignore file
-└── README.md                 # This README
+src/                      # Source code
+├── main.py               # Server entry point with tools & prompts
+├── config.py             # Configuration settings
+└── utils/                # Utility functions
+└── tools/                # Tools 
+└── resources/            # resources 
+test/                     # Tests
+pyproject.toml            # Package configuration
+Dockerfile                # Docker support
 ```
 
-## Customization
+## Docker Deployment
 
-1. **Change the server name**:
-   - Update `name` in `pyproject.toml`
-   - Rename the entry point in `[project.scripts]`
-   - Update imports in your code
-
-2. **Add your resources**:
-   - Add new modules in `src/resources/`
-   - Register them in `src/main.py`
-
-3. **Add your tools**:
-   - Add new tool modules in `src/tools/`
-   - Register them in `src/main.py`
+```bash
+# Build and run with Docker
+docker build -t my-mcp-server .
+docker run -p 8080:8080 my-mcp-server
+```
 
 ## Development
 
 ```bash
-# Install development dependencies
+# Install dev dependencies
 pip install -e ".[dev]"
 
 # Run tests
 pytest
 
 # Format code
-black src tests
-isort src tests
-
-# Type checking
-mypy src
+black src test
+isort src test
 ```
 
-## Docker Deployment
+## Need Help?
 
-```bash
-# Build the Docker image
-docker build -t your-mcp-server .
-
-# Run the container
-docker run -p 8080:8080 your-mcp-server
-```
-
-## License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-## About MCP
-
-The Model Context Protocol (MCP) is an open protocol that enables seamless integration between LLM applications and external data sources and tools. Learn more at [modelcontextprotocol.io](https://modelcontextprotocol.io).
+- MCP Documentation: [modelcontextprotocol.io](https://modelcontextprotocol.io)
+- File an issue: [GitHub Issues](https://github.com/nisarg38/mcp-server-template-python/issues)

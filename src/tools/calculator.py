@@ -21,16 +21,10 @@ class CalculatorTool(Tool):
         description="Add two numbers together",
         parameters=[
             ToolParameter(
-                name="a", 
-                description="First number", 
-                type="number", 
-                required=True
+                name="a", description="First number", type="number", required=True
             ),
             ToolParameter(
-                name="b", 
-                description="Second number", 
-                type="number", 
-                required=True
+                name="b", description="Second number", type="number", required=True
             ),
         ],
     )
