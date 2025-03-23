@@ -5,18 +5,23 @@ import asyncio
 import logging
 import math
 import sys
+from enum import Enum
 from typing import Any, Dict, List, Optional
 
 import uvicorn
-from mcp import Transport
 from mcp.server.fastmcp import FastMCP
-from mcp.server.stdio import stdin_stdout_transport
 
 from src.config import config
 from src.utils import get_version, setup_logging
 
 # Configure logging
 logger = logging.getLogger(__name__)
+
+# Define transport enum
+class Transport(Enum):
+    """Transport options for the MCP server."""
+    HTTP = "http"
+    STDIO = "stdio"
 
 # Create the MCP server
 mcp = FastMCP(
@@ -89,13 +94,14 @@ async def run_server(
     # Run the server with the specified transport
     if transport == Transport.STDIO:
         logger.info("Starting MCP server with stdio transport")
-        await stdin_stdout_transport(mcp)
+        # Use asyncio.StreamReader/StreamWriter instead of stdin_stdout_transport
+        # This is a placeholder - implement based on MCP library requirements
+        raise NotImplementedError("stdio transport not implemented in this version")
     else:
         logger.info(f"Starting MCP server at http://{host}:{port}")
-        app = mcp.get_app()
-
+        # FastAPI app integration
         config_dict = uvicorn.Config(
-            app=app,
+            app=mcp.app,  # Use .app instead of get_app()
             host=host,
             port=port,
             log_level="debug" if debug else "info",

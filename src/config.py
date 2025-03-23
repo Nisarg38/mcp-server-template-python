@@ -6,7 +6,7 @@ from typing import Any, Dict, Optional
 class ServerConfig:
     """Server configuration settings."""
 
-    def __init__(self):
+    def __init__(self) -> None:
         """Initialize with default configuration."""
         self.name: str = "MCP Server Template"
         self.description: str = (
