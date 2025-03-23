@@ -1,0 +1,65 @@
+# MCP Server Template Deployment Configuration
+
+# Server configuration
+server:
+  name: "MCP Server Template"
+  host: "0.0.0.0"
+  port: 8080
+  debug: false
+  log_level: "info"
+
+# Deployment environments
+environments:
+  development:
+    host: "localhost"
+    debug: true
+    log_level: "debug"
+  
+  staging:
+    host: "0.0.0.0"
+    port: 8080
+    debug: false
+    log_level: "info"
+    
+  production:
+    host: "0.0.0.0"
+    port: 8080
+    debug: false
+    log_level: "warning"
+    https: true
+    
+# Docker configuration
+docker:
+  image: "mcp-server-template"
+  registry: "your-registry.com"
+  tag: "latest"
+  build_args:
+    - "BUILD_ENV=production"
+
+# Cloud deployment (examples)
+cloud:
+  # AWS configuration
+  aws:
+    region: "us-west-2"
+    ecr_repository: "mcp-server-template"
+    ecs_cluster: "mcp-cluster"
+    ecs_service: "mcp-server-template"
+    
+  # GCP configuration
+  gcp:
+    project: "your-project-id"
+    region: "us-central1"
+    service: "mcp-server-template"
+    
+  # Azure configuration
+  azure:
+    resource_group: "mcp-resources"
+    app_name: "mcp-server-template"
+    region: "eastus"
+
+# Secrets management
+secrets:
+  # List of required secrets (to be provided by environment or secrets manager)
+  required:
+    - "API_KEY"
+    - "DB_PASSWORD" 

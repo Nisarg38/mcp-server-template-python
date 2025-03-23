@@ -1,0 +1,55 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mcp-server-template-python"
+version = "0.1.0"
+description = "A template for creating MCP compatible AI servers in Python"
+readme = "README.md"
+requires-python = ">=3.9"
+license = { text = "MIT" }
+authors = [
+    { name = "MCP Team", email = "mcp@example.com" }
+]
+dependencies = [
+    "mcp>=0.0.2",
+    "pydantic>=2.0.0",
+    "uvicorn>=0.20.0",
+    "websockets>=11.0.2",
+    "asyncio>=3.4.3",
+]
+
+[project.optional-dependencies]
+dev = [
+    "black>=23.10.0",
+    "isort>=5.12.0",
+    "mypy>=1.5.1",
+    "pylint>=3.0.1",
+    "pytest>=7.0.0",
+]
+
+[project.scripts]
+mcp-template-server = "src.main:run_server"
+
+[tool.setuptools]
+package-dir = { "" = "." }
+
+[tool.black]
+line-length = 88
+target-version = ["py39"]
+
+[tool.isort]
+profile = "black"
+line_length = 88
+
+[tool.mypy]
+python_version = "3.9"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+disallow_incomplete_defs = true
+
+[tool.pytest.ini_options]
+asyncio_mode = "strict"
+asyncio_default_fixture_loop_scope = "function" 
