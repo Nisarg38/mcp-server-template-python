@@ -90,10 +90,10 @@ def your_prompt_name(param: str) -> str:
 src/                      # Source code
 ├── main.py               # Server entry point with tools & prompts
 ├── config.py             # Configuration settings
-└── utils/                # Utility functions
-└── tools/                # Tools 
-└── resources/            # resources 
-test/                     # Tests
+├── utils/                # Utility functions
+├── tools/                # Tools functions
+└── resources/            # Resource definitions
+test/                     # Tests directory
 pyproject.toml            # Package configuration
 Dockerfile                # Docker support
 ```

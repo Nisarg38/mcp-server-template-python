@@ -28,11 +28,11 @@ jobs:
         
     - name: Check formatting with black
       run: |
-        black --check src tests
+        black --check src test
         
     - name: Check imports with isort
       run: |
-        isort --check src tests
+        isort --check src test
         
     - name: Type checking with mypy
       run: |
