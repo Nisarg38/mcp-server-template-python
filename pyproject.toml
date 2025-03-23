@@ -7,7 +7,7 @@ name = "mcp-server-template-python"
 version = "0.1.0"
 description = "A template for creating MCP compatible AI servers in Python"
 readme = "README.md"
-requires-python = ">=3.9"
+requires-python = ">=3.10"
 license = { text = "MIT" }
 authors = [
     { name = "MCP Team", email = "mcp@example.com" }
@@ -37,18 +37,19 @@ package-dir = { "" = "." }
 
 [tool.black]
 line-length = 88
-target-version = ["py39"]
+target-version = ["py310"]
 
 [tool.isort]
 profile = "black"
 line_length = 88
 
 [tool.mypy]
-python_version = "3.9"
+python_version = "3.10"
 warn_return_any = true
 warn_unused_configs = true
 disallow_untyped_defs = true
 disallow_incomplete_defs = true
+ignore_missing_imports = true
 
 [tool.pytest.ini_options]
 asyncio_mode = "strict"
