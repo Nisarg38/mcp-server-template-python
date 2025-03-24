@@ -17,11 +17,14 @@ from src.utils import get_version, setup_logging
 # Configure logging
 logger = logging.getLogger(__name__)
 
+
 # Define transport enum
 class Transport(Enum):
     """Transport options for the MCP server."""
+
     HTTP = "http"
     STDIO = "stdio"
+
 
 # Create the MCP server
 mcp = FastMCP(
