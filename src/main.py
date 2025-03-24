@@ -102,9 +102,9 @@ async def run_server(
         raise NotImplementedError("stdio transport not implemented in this version")
     else:
         logger.info(f"Starting MCP server at http://{host}:{port}")
-        # FastAPI app integration
+        # FastAPI app integration - FastMCP exposes app through sse_app attribute
         config_dict = uvicorn.Config(
-            app=mcp.app,  # Use .app instead of get_app()
+            app=mcp.sse_app,  # Access the SSE app (FastAPI app)
             host=host,
             port=port,
             log_level="debug" if debug else "info",

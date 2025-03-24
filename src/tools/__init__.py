@@ -1,5 +1,5 @@
 """MCP Tools Package."""
 
-from src.tools.calculator import CalculatorTool
+from src.tools.calculator import calculator_tool
 
-__all__ = ["CalculatorTool"]
+__all__ = ["calculator_tool"]
